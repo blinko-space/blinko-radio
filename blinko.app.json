@@ -1,0 +1,65 @@
+{
+  "appId": "cloud.blinko.radio",
+  "version": "0.1.7",
+  "minRuntimeApi": "1.0.0",
+  "source": {
+    "repository": "https://github.com/blinko-space/blinko-radio",
+    "revision": "0000000000000000000000000000000000000000"
+  },
+  "license": "MIT",
+  "contentHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "listing": {
+    "nameKey": "app.name",
+    "summaryKey": "app.summary",
+    "descriptionKey": "app.description"
+  },
+  "targets": {
+    "web": {
+      "entry": "src/index.ts",
+      "minHostVersion": "1.0.0",
+      "minRuntimeApi": "1.0.0",
+      "permissions": [],
+      "optionalPermissions": []
+    }
+  },
+  "ui": {
+    "minComponentsVersion": "1.0.0",
+    "minTokensVersion": "1.0.0",
+    "customViews": [{
+      "id": "radio.player",
+      "entry": "ui/player.html",
+      "width": 360,
+      "height": 304,
+      "minWidth": 296,
+      "minHeight": 280
+    }]
+  },
+  "locales": {
+    "default": "en",
+    "supported": ["en", "zh-CN", "zh-TW"]
+  },
+  "permissions": {
+    "required": ["network:http", "network:stream"],
+    "optional": []
+  },
+  "network": {
+    "domains": ["*.api.radio-browser.info"]
+  },
+  "oauth": { "redirectUris": [] },
+  "dataTypes": [],
+  "commands": [],
+  "contributes": {
+    "items": [{
+      "id": "radio.toolbar",
+      "kind": "view",
+      "surface": "app/toolbar",
+      "handler": "radio.player",
+      "viewId": "radio.player",
+      "icon": "radio",
+      "titleKey": "radio.open",
+      "group": "media",
+      "order": 80
+    }]
+  },
+  "activationEvents": []
+}

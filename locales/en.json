@@ -1,0 +1,6 @@
+{
+  "app.name": "Blinko Radio",
+  "app.summary": "A quiet corner for live internet radio.",
+  "app.description": "Listen to a curated set of public internet radio stations in a compact floating player.",
+  "radio.open": "Open Blinko Radio"
+}

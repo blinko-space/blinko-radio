@@ -1,0 +1,6 @@
+{
+  "app.name": "Blinko 电台",
+  "app.summary": "在 Blinko 里安静地听网络电台。",
+  "app.description": "通过简洁的悬浮播放器收听精选的公共网络电台。",
+  "radio.open": "打开 Blinko 电台"
+}
