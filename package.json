@@ -12,13 +12,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@blinko-cloud/extension-sdk": "workspace:*",
+    "@blinko-cloud/extension-sdk": "^0.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@blinko-cloud/cli": "workspace:*",
-    "@blinko-cloud/extension-devtools": "workspace:*",
+    "@blinko-cloud/cli": "^0.1.1",
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",

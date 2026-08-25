@@ -13,75 +13,59 @@ New Blinko Apps use one package namespace consistently:
 | `@blinko-cloud/cli` | The `blinko` command: create, validate, develop, build, pack, and publish Apps. |
 | `@blinko-cloud/extension-sdk` | Typed Worker APIs and the typed Custom View host bridge. App runtime code imports this package. |
 | `@blinko-cloud/extension-ui` | Declarative, host-rendered UI descriptors. Use it for native Blinko surfaces; a React Custom View does not need to import it. |
-| `@blinko-cloud/extension-devtools` | The validator, compiler, release packager, and local pairing implementation used by the CLI. App code must not import it at runtime. |
+| `@blinko-cloud/extension-devtools` | Internal implementation bundled into the CLI. App projects must not install or import it. |
 
 Do not use the old `@blinko/extension-sdk` or `@blinko/extension-ui` names. The unscoped `blinko` and `blinko-cli` npm packages belong to the legacy plugin system and are unrelated to this App platform.
 
-Radio uses `@blinko-cloud/extension-sdk` in its Worker and React Custom View. It keeps `@blinko-cloud/cli` and `@blinko-cloud/extension-devtools` as development dependencies. It intentionally does not add an unused `@blinko-cloud/extension-ui` dependency because this player is a sandboxed React Custom View rather than a declarative host-rendered view.
+Radio installs `@blinko-cloud/extension-sdk` as a runtime dependency and `@blinko-cloud/cli` as a development dependency. It intentionally does not add an unused direct `@blinko-cloud/extension-ui` dependency because this player is a sandboxed React Custom View rather than a declarative host-rendered view.
 
 ## Development workflow
 
-### 1. Install the CLI
+### 1. Clone and install
 
-The CLI requires Node.js 20 or newer:
+The repository is independently installable with Node.js 20 or newer; it does not require the Blinko monorepo:
 
 ```bash
-npm install --global @blinko-cloud/cli
-blinko --version
+git clone https://github.com/blinko-space/blinko-radio.git
+cd blinko-radio
+npm install
+npm run typecheck
 ```
 
-Only `@blinko-cloud/cli` is currently published independently. The SDK, UI, and devtools packages are bundled with the CLI while their standalone npm packages are being prepared. Source development therefore uses this repository through the Blinko workspace/submodule workflow below.
+`npm install` resolves the public `@blinko-cloud/extension-sdk` and `@blinko-cloud/cli` packages from npm. The SDK supplies editor and `tsc` types; the CLI supplies validation, building, packaging, and local pairing. The internal devtools workspace package is not required.
 
-### 2. Prepare the Blinko workspace
-
-Clone the Blinko repository with submodules and install its pinned dependencies:
+### 2. Validate and test Radio
 
 ```bash
-git clone --recurse-submodules https://github.com/blinko-space/blinko-private.git
-cd blinko-private
-bun install --frozen-lockfile
-```
-
-For an existing clone:
-
-```bash
-git submodule update --init --recursive
-```
-
-### 3. Validate and test Radio
-
-Run these commands from the Blinko repository root:
-
-```bash
-blinko extension validate apps/radio
-bun run --cwd apps/radio typecheck
-bun run --cwd apps/radio test
+npm run validate
+npm run typecheck
+npm test
 ```
 
 Validation checks the manifest, permissions, locale catalogs, Custom View entry, public import boundaries, and forbidden dynamic code before anything is loaded by the host.
 
-### 4. Run the local development loop
+### 3. Run the local development loop
 
 Start Blinko locally, then run:
 
 ```bash
-blinko extension dev apps/radio
+npm run dev
 ```
 
 The command watches `src/`, `ui/`, `locales/`, and `blinko.app.json`. It prints a short-lived pairing URL for Blinko's developer page and sends last-valid hot-reload snapshots over a loopback-only connection. Open the pairing URL, connect the App, and test the toolbar icon and floating player in the real host.
 
-### 5. Build and package
+### 4. Build and package
 
 ```bash
-blinko extension build apps/radio
-blinko extension pack apps/radio
+npm run build
+npm run pack
 ```
 
 `build` compiles the Worker plus the React/TypeScript Custom View. React, JavaScript, and CSS are bundled into one signed, self-contained HTML resource; the App does not ship remote scripts or stylesheets. `pack` creates the deterministic release candidate in `apps/radio/dist/release-package.json`.
 
 The repository contains no App-specific build or preview scripts. The `dev`, `build`, and `pack` entries in `package.json` are only convenient aliases for the shared CLI.
 
-### 6. Commit submodule changes
+### 5. Monorepo maintainers: update the submodule
 
 Radio is a Git submodule. Commit and push inside the App first, then update the pointer in Blinko:
 
