@@ -1,21 +1,27 @@
 {
   "name": "@blinko-apps/radio",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "type": "module",
   "packageManager": "bun@1.3.8",
   "scripts": {
-    "preview": "bun scripts/preview.ts",
-    "build": "bun scripts/build.ts",
+    "dev": "blinko extension dev .",
+    "build": "blinko extension build .",
+    "pack": "blinko extension pack .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
   "dependencies": {
-    "@blinko/extension-sdk": "workspace:*"
+    "@blinko/extension-sdk": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@blinko-cloud/cli": "workspace:*",
     "@blinko-cloud/extension-devtools": "workspace:*",
     "@types/node": "^22.0.0",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "typescript": "^5.7.0",
     "vitest": "^2.1.0"
   }

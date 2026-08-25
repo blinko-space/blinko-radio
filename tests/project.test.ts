@@ -12,7 +12,7 @@ describe("Blinko Radio App", () => {
       appId: "cloud.blinko.radio",
       permissions: { required: ["network:http", "network:stream"] },
       network: { domains: ["*.api.radio-browser.info"] },
-      ui: { customViews: [expect.objectContaining({ id: "radio.player", entry: "ui/player.html" })] },
+      ui: { customViews: [expect.objectContaining({ id: "radio.player", entry: "ui/main.tsx" })] },
       contributes: { items: [expect.objectContaining({ surface: "app/toolbar", viewId: "radio.player" })] },
     });
     expect(result.diagnostics).toEqual([]);
@@ -24,25 +24,23 @@ describe("Blinko Radio App", () => {
     expect(resource).toMatchObject({ kind: "document", mimeType: "text/html" });
     const html = result.resourceFiles[resource!.path]!;
     expect(html).toContain("api.radio-browser.info");
-    expect(html).toContain('id="favoritesPanel"');
-    expect(html).toContain('event.code === "Space"');
-    expect(html).toContain('event.key.toLowerCase() === "r"');
-    expect(html).toContain('void randomize(true)');
-    expect(html).toContain('if (Math.abs(delta) > 4 && !genreDrag.captured)');
-    expect(html).toContain('id="spaceHint">Space</kbd>');
-    expect(html).toContain('"zh-CN": { title: "Blinko 电台"');
-    expect(html).toContain('class="artwork-backdrop"');
-    expect(html).toContain('new Intl.DisplayNames([locale]');
-    expect(html).not.toContain("live-dot");
-    expect(html).not.toMatch(/<script\b[^>]*\bsrc\s*=/i);
-    expect(html).not.toMatch(/<link\b[^>]*\brel=["']?stylesheet/i);
+    expect(html).toContain("Blinko Radio");
+    expect(html).toContain("api.radio-browser.info");
+    expect(html).toContain("blinkoCustomUi");
+    expect(html).toContain("artwork-backdrop");
+    expect(html).toContain("Intl.DisplayNames");
+    const shell = html.replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, "$1</script>");
+    expect(shell).not.toMatch(/<script\b[^>]*\bsrc\s*=/i);
+    expect(shell).not.toMatch(/<link\b[^>]*\brel=["']?stylesheet/i);
   }, 15_000);
 
   it("includes the custom UI in the auditable release source and artifact", async () => {
     const release = await createExtensionReleasePackage(root, { allowDirty: true });
     expect(release.manifest.source.revision).toBe(execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim());
     const source = JSON.parse(Buffer.from(release.archives.find((item) => item.kind === "SOURCE")!.bytesBase64, "base64").toString("utf8"));
-    expect(source.files["ui/player.html"]).toBeTypeOf("string");
+    expect(source.files["ui/main.tsx"]).toBeTypeOf("string");
+    expect(source.files["ui/player.css"]).toBeTypeOf("string");
+    expect(source.files["scripts/build.ts"]).toBeUndefined();
     expect(release.artifacts[0]?.resourceIndex).toMatchObject({
       resources: expect.arrayContaining([expect.objectContaining({ id: "ui.radio.player", kind: "document" })]),
     });

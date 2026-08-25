@@ -4,27 +4,26 @@ Blinko Radio is the reference internet-radio App for [Blinko](https://blinko.spa
 
 The station directory is powered by the public [Radio Browser](https://www.radio-browser.info/) project. Audio remains in the browser and playback starts only after a user gesture.
 
-## Preview the player
+## Develop with the Blinko CLI
 
-The player is a self-contained HTML document, so its visual layer can be previewed without the Blinko host or installing dependencies:
+The player is written in React and TypeScript. The shared Blinko CLI handles development, validation, building, and packaging; this repository does not carry per-App build scripts:
 
 ```bash
 git clone https://github.com/blinko-space/blinko-radio.git
 cd blinko-radio
-bun scripts/preview.ts
+blinko extension dev .
+blinko extension validate .
+blinko extension build .
+blinko extension pack .
 ```
 
-Open `http://localhost:4178`. Use query parameters to test host states:
-
-```text
-http://localhost:4178/?theme=dark&locale=zh-CN
-http://localhost:4178/?theme=light&locale=en
-```
+`extension dev` prints a pairing link for Blinko's developer page and hot-reloads the last valid build.
 
 ## Project map
 
 - `blinko.app.json` declares the toolbar contribution, custom view, locales, capabilities, and allowed network domains.
-- `ui/player.html` contains the complete player implementation. Published Apps cannot load remote JavaScript or CSS.
+- `ui/main.tsx` contains the React player and calls the typed Custom View bridge from the public SDK.
+- `ui/player.css` contains the player presentation. The CLI bundles it into the signed HTML resource.
 - `src/index.ts` is the capability-isolated App lifecycle entry.
 - `locales/` contains marketplace and toolbar copy.
 - `tests/` validates the packaged document and its declared authority.
@@ -42,7 +41,7 @@ Blinko consumes this repository as the `apps/radio` Git submodule. The productio
 
 ```bash
 bun run --cwd apps/radio test
-bun run --cwd apps/radio build
+blinko extension build apps/radio
 ```
 
 Make App changes from inside the submodule, commit and push them here, then commit the updated submodule pointer in the Blinko repository.

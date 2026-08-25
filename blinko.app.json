@@ -1,6 +1,6 @@
 {
   "appId": "cloud.blinko.radio",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "minRuntimeApi": "1.0.0",
   "source": {
     "repository": "https://github.com/blinko-space/blinko-radio",
@@ -27,7 +27,7 @@
     "minTokensVersion": "1.0.0",
     "customViews": [{
       "id": "radio.player",
-      "entry": "ui/player.html",
+      "entry": "ui/main.tsx",
       "width": 360,
       "height": 304,
       "minWidth": 296,
