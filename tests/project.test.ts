@@ -2,7 +2,7 @@ import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { parseExtensionManifest } from "@blinko-cloud/extension-sdk";
+import { parseExtensionManifest } from "@blinko-cloud/cli/sdk";
 
 const root = resolve(import.meta.dirname, "..");
 const blinko = resolve(root, "node_modules/.bin/blinko");

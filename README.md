@@ -11,13 +11,13 @@ New Blinko Apps use one package namespace consistently:
 | Package | Use it for |
 | --- | --- |
 | `@blinko-cloud/cli` | The `blinko` command: create, validate, develop, build, pack, and publish Apps. |
-| `@blinko-cloud/extension-sdk` | Typed Worker APIs and the typed Custom View host bridge. App runtime code imports this package. |
-| `@blinko-cloud/extension-ui` | Declarative, host-rendered UI descriptors. Use it for native Blinko surfaces; a React Custom View does not need to import it. |
+| `@blinko-cloud/cli/sdk` | Typed Worker APIs and declarative, host-rendered UI descriptors. |
+| `@blinko-cloud/cli/custom-view` | Typed Custom View host bridge for the React player. |
 | `@blinko-cloud/extension-devtools` | Internal implementation bundled into the CLI. App projects must not install or import it. |
 
 Do not use the old `@blinko/extension-sdk` or `@blinko/extension-ui` names. The unscoped `blinko` and `blinko-cli` npm packages belong to the legacy plugin system and are unrelated to this App platform.
 
-Radio installs `@blinko-cloud/extension-sdk` as a runtime dependency and `@blinko-cloud/cli` as a development dependency. It intentionally does not add an unused direct `@blinko-cloud/extension-ui` dependency because this player is a sandboxed React Custom View rather than a declarative host-rendered view.
+Radio installs only `@blinko-cloud/cli` as a development dependency. The same package supplies the command, runtime interfaces, and TypeScript declarations; React remains a normal runtime dependency.
 
 ## Development workflow
 
@@ -32,7 +32,7 @@ npm install
 npm run typecheck
 ```
 
-`npm install` resolves the public `@blinko-cloud/extension-sdk` and `@blinko-cloud/cli` packages from npm. The SDK supplies editor and `tsc` types; the CLI supplies validation, building, packaging, and local pairing. The internal devtools workspace package is not required.
+`npm install` resolves the public `@blinko-cloud/cli` package from npm. Its subpath exports supply editor and `tsc` types, while its binary supplies validation, building, packaging, and local pairing. The internal SDK, UI, and devtools workspace packages are not required.
 
 ### 2. Validate and test Radio
 
