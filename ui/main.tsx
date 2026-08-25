@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { customViewPresentation, getCustomViewHost } from "@blinko/extension-sdk/custom-view";
+import { customViewPresentation, getCustomViewHost } from "@blinko-cloud/extension-sdk/custom-view";
 import "./player.css";
 
 type Category = "all" | "pop" | "rock" | "jazz" | "lofi" | "electronic" | "classical";

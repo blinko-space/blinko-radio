@@ -1,4 +1,4 @@
-import { defineExtension } from "@blinko/extension-sdk";
+import { defineExtension } from "@blinko-cloud/extension-sdk";
 
 defineExtension({
   activate: async () => {
