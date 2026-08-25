@@ -2,6 +2,8 @@
 :root[data-blinko-theme="dark"] { color-scheme: dark; }
 * { box-sizing: border-box; }
 html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+:root[data-blinko-mode="embedded"] .window-actions { display: none; }
+:root[data-blinko-mode="embedded"] .drag { cursor: default; }
 body { color: #27232c; background: transparent; }
 button, input { color: inherit; font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
