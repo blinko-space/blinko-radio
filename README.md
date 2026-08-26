@@ -61,7 +61,7 @@ npm run build
 npm run pack
 ```
 
-`build` compiles the Worker plus the React/TypeScript Custom View. React, JavaScript, and CSS are bundled into one signed, self-contained HTML resource; the App does not ship remote scripts or stylesheets. `pack` creates the deterministic release candidate in `apps/radio/dist/release-package.json`.
+`build` compiles the Worker plus the React/TypeScript Custom View. React, JavaScript, and CSS are bundled into one signed, self-contained HTML resource; the App does not ship remote scripts or stylesheets. `pack` creates the deterministic release candidate in `plugins/radio/dist/release-package.json`.
 
 The repository contains no App-specific build or preview scripts. The `dev`, `build`, and `pack` entries in `package.json` are only convenient aliases for the shared CLI.
 
@@ -70,13 +70,13 @@ The repository contains no App-specific build or preview scripts. The `dev`, `bu
 Radio is a Git submodule. Commit and push inside the App first, then update the pointer in Blinko:
 
 ```bash
-cd apps/radio
+cd plugins/radio
 git add -A
 git commit -m "✨ feat: describe the Radio change"
 git push origin HEAD:main
 
 cd ../..
-git add apps/radio
+git add plugins/radio
 git commit -m "⬆️ chore: update Blinko Radio"
 ```
 
