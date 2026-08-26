@@ -1,6 +1,6 @@
 {
   "appId": "cloud.blinko.radio",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "minRuntimeApi": "1.0.0",
   "source": {
     "repository": "https://github.com/blinko-space/blinko-radio",

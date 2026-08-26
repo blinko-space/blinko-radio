@@ -50,4 +50,13 @@ describe("Blinko Radio App", () => {
       resources: expect.arrayContaining([expect.objectContaining({ id: "ui.radio.player", kind: "document" })]),
     });
   }, 30_000);
+
+  it("keeps favorite rows at their natural height so an overflowing list can scroll", () => {
+    const css = readFileSync(resolve(root, "ui/player.css"), "utf8");
+    const listRule = css.match(/\.favorites-list\s*\{([^}]*)\}/)?.[1] ?? "";
+    const rowRule = css.match(/\.favorite-row\s*\{([^}]*)\}/)?.[1] ?? "";
+
+    expect(listRule).toMatch(/overflow-y\s*:\s*auto/);
+    expect(rowRule).toMatch(/flex\s*:\s*0\s+0\s+auto|flex-shrink\s*:\s*0/);
+  });
 });
