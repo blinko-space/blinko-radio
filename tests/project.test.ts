@@ -18,7 +18,7 @@ describe("Blinko Radio App", () => {
       appId: "cloud.blinko.radio",
       permissions: { required: ["network:http", "network:stream"] },
       network: { domains: ["*.api.radio-browser.info"] },
-      ui: { customViews: [expect.objectContaining({ id: "radio.player", entry: "ui/main.tsx" })] },
+      ui: { customViews: [expect.objectContaining({ id: "radio.player", entry: "ui/main.tsx", presentation: "floating-window" })] },
       contributes: { items: [expect.objectContaining({ surface: "app/toolbar", viewId: "radio.player" })] },
     });
     expect(runCli("validate")).toContain("Valid cloud.blinko.radio");
@@ -36,6 +36,9 @@ describe("Blinko Radio App", () => {
     expect(html).toContain("blinkoCustomUi");
     expect(html).toContain("artwork-backdrop");
     expect(html).toContain("Intl.DisplayNames");
+    expect(html).not.toContain("data-blinko-drag-handle");
+    expect(html).not.toContain("host.minimize");
+    expect(html).not.toContain("host.close");
     const shell = html.replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, "$1</script>");
     expect(shell).not.toMatch(/<script\b[^>]*\bsrc\s*=/i);
     expect(shell).not.toMatch(/<link\b[^>]*\brel=["']?stylesheet/i);
