@@ -49,7 +49,10 @@ describe("Blinko Radio App", () => {
 
   it("keeps the custom UI auditable in source and in the CLI build artifact", () => {
     expect(readFileSync(resolve(root, "ui/main.tsx"), "utf8")).toContain("getCustomViewHost");
-    expect(readFileSync(resolve(root, "ui/player.css"), "utf8")).toContain(".player");
+    const css = readFileSync(resolve(root, "ui/player.css"), "utf8");
+    expect(css).toContain(".player");
+    expect(css).toContain("padding: 52px 50px 8px 14px");
+    expect(css).not.toMatch(/\.player\s*\{[^}]*border-radius/);
     runCli("build");
     const resourceIndex = JSON.parse(readFileSync(resolve(root, "dist/resource-index.json"), "utf8"));
     expect(resourceIndex).toMatchObject({

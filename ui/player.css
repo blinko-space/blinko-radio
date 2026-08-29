@@ -15,12 +15,12 @@ button { -webkit-tap-highlight-color: transparent; }
 .artwork-layer { position: absolute; inset: -18%; background-position: center; background-size: cover; filter: blur(34px) saturate(.88); opacity: 0; transform: scale(1.08); transition: opacity .26s cubic-bezier(.23,1,.32,1); }
 .artwork-layer.active { opacity: .46; }
 .artwork-shade { position: absolute; inset: 0; background: linear-gradient(145deg, rgba(250,241,234,.54), rgba(241,224,231,.56) 52%, rgba(232,228,246,.58)); }
-.content-actions { position: absolute; z-index: 4; top: 6px; right: 8px; display: flex; align-items: center; }
+.content-actions { position: absolute; z-index: 4; top: 50px; right: 8px; display: flex; align-items: center; }
 .icon-button { display: grid; width: 30px; height: 30px; place-items: center; border: 0; border-radius: 10px; background: transparent; cursor: pointer; transition: transform .15s cubic-bezier(.23,1,.32,1), background-color .15s ease, color .15s ease; }
 .icon-button:hover, .icon-button.active { background: rgba(255,255,255,.5); }
 .icon-button:active { transform: scale(.92); }
 .icon-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.genres { position: relative; z-index: 2; display: flex; gap: 6px; overflow-x: auto; padding: 8px 50px 8px 14px; cursor: grab; scrollbar-width: none; scroll-padding-inline: 14px; overscroll-behavior-x: contain; touch-action: pan-x; user-select: none; }
+.genres { position: relative; z-index: 2; display: flex; gap: 6px; overflow-x: auto; padding: 52px 50px 8px 14px; cursor: grab; scrollbar-width: none; scroll-padding-inline: 14px; overscroll-behavior-x: contain; touch-action: pan-x; user-select: none; }
 .genres.dragging { cursor: grabbing; scroll-snap-type: none; }
 .genres::-webkit-scrollbar { display: none; }
 .genre { flex: 0 0 auto; border: 0; border-radius: 999px; padding: 5px 11px; background: rgba(255,255,255,.4); font-size: 11px; font-weight: 650; cursor: pointer; scroll-snap-align: start; transition: color .15s ease, background-color .15s ease, transform .15s cubic-bezier(.23,1,.32,1); }
