@@ -18,7 +18,10 @@ describe("Blinko Radio App", () => {
       appId: "cloud.blinko.radio",
       permissions: { required: ["network:http", "network:stream"] },
       network: { domains: ["*.api.radio-browser.info"] },
-      ui: { customViews: [expect.objectContaining({ id: "radio.player", entry: "ui/main.tsx", presentation: "floating-window" })] },
+      ui: { customViews: [expect.objectContaining({
+        id: "radio.player", entry: "ui/main.tsx", presentation: "floating-window",
+        resizable: true, maxWidth: 720, maxHeight: 560,
+      })] },
       contributes: { items: [expect.objectContaining({ surface: "app/toolbar", viewId: "radio.player" })] },
     });
     expect(runCli("validate")).toContain("Valid cloud.blinko.radio");

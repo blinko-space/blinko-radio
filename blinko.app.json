@@ -1,6 +1,6 @@
 {
   "appId": "cloud.blinko.radio",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "minRuntimeApi": "1.0.0",
   "source": {
     "repository": "https://github.com/blinko-space/blinko-radio",
@@ -31,8 +31,11 @@
       "presentation": "floating-window",
       "width": 360,
       "height": 304,
+      "resizable": true,
       "minWidth": 296,
-      "minHeight": 280
+      "minHeight": 280,
+      "maxWidth": 720,
+      "maxHeight": 560
     }]
   },
   "locales": {
