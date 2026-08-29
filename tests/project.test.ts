@@ -20,7 +20,7 @@ describe("Blinko Radio App", () => {
       network: { domains: ["*.api.radio-browser.info"] },
       ui: { customViews: [expect.objectContaining({
         id: "radio.player", entry: "ui/main.tsx", presentation: "floating-window",
-        resizable: true, maxWidth: 720, maxHeight: 560,
+        resizable: true, resizeAxis: "both", maxWidth: 720, maxHeight: 560,
       })] },
       contributes: { items: [expect.objectContaining({ surface: "app/toolbar", viewId: "radio.player" })] },
     });
@@ -51,8 +51,11 @@ describe("Blinko Radio App", () => {
     expect(readFileSync(resolve(root, "ui/main.tsx"), "utf8")).toContain("getCustomViewHost");
     const css = readFileSync(resolve(root, "ui/player.css"), "utf8");
     expect(css).toContain(".player");
-    expect(css).toContain("padding: 52px 50px 8px 14px");
+    expect(css).toContain("html, body, #root");
+    expect(css).toContain("--blinko-window-titlebar-height");
+    expect(css).toContain("grid-template-columns: minmax(0, 1fr) auto");
     expect(css).not.toMatch(/\.player\s*\{[^}]*border-radius/);
+    expect(readFileSync(resolve(root, "ui/main.tsx"), "utf8")).toContain('className="top-controls"');
     runCli("build");
     const resourceIndex = JSON.parse(readFileSync(resolve(root, "dist/resource-index.json"), "utf8"));
     expect(resourceIndex).toMatchObject({
