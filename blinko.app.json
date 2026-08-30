@@ -1,6 +1,6 @@
 {
   "appId": "cloud.blinko.radio",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "minRuntimeApi": "1.0.0",
   "source": {
     "repository": "https://github.com/blinko-space/blinko-radio",
@@ -16,7 +16,7 @@
   "targets": {
     "web": {
       "entry": "src/index.ts",
-      "minHostVersion": "1.0.0",
+      "minHostVersion": "1.1.0",
       "minRuntimeApi": "1.0.0",
       "permissions": [],
       "optionalPermissions": []
